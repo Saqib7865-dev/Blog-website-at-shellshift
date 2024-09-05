@@ -18,7 +18,7 @@ const Footer = () => {
           <h3 className="text-teal-400 text-xl mb-4">Quick Links</h3>
           <ul className="cursor-pointer text-white">
             <li className="mb-2">Blogs</li>
-            <li className="mb-2">FAQ's</li>
+            <li className="mb-2">FAQs</li>
             <li className="mb-2">Contact Us</li>
             <li>Privacy Policy</li>
           </ul>
@@ -42,7 +42,7 @@ const Footer = () => {
       </div>
      
     </footer>
-    <div className="bg-[#1E201E] text-white text-center py-6">
+    <div className="bg-[#1E201E] text-white text-center py-1">
         copyright © 2024
       </div>
       </div>
