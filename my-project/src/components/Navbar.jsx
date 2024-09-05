@@ -14,7 +14,7 @@ const Navbar = () => {
       alignItems: 'center',
       padding: '25px 20px',
       background: 'rgb(69,71,75)',
-      color: '#fff',
+      color: 'White',
       position: 'relative',
       boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
     },
@@ -30,15 +30,7 @@ const Navbar = () => {
       listStyle: 'none',
       marginRight: '50px',
       cursor:'pointer',
-    },
-    navLink: {
-      textDecoration: 'none',
-      color: 'white',
-      fontSize: '18px',
-      transition: 'color 0.3s ease',
-    },
-    navLinkHover: {
-      color: 'rgb(47,212,191)',
+      fontWeight: 'bold',
     },
     mobileMenuIcon: {
       display: 'none',
