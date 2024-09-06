@@ -73,7 +73,6 @@ const Navbar = () => {
     }
   };
 
-  // Adjust styles based on screen width
   if (window.innerWidth <= 500) {
     styles.navLinks.display = 'none';
     styles.mobileMenuIcon.display = 'block';
@@ -89,11 +88,11 @@ const Navbar = () => {
         style={{ ...styles.navLinks, ...(isMobileMenuOpen ? styles.navLinksOpen : {}) }}
         onClick={() => setIsMobileMenuOpen(false)}
       >
-        <li>Home</li>
-        <li>My Blogs</li>
-        <li>Faqs</li>
-        <li>Privacy Policy</li>
-        <li>Contact Us</li>
+        <li >Home</li>
+        <li >My Blogs</li>
+        <li >Faqs</li>
+        <li >Privacy Policy</li>
+        <li >Contact Us</li>
       </ul>
       <button
         style={styles.mobileMenuIcon}
