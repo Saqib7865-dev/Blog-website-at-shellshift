@@ -1,20 +1,16 @@
 import Footer from "./Footer"
 import Navbar from "./Navbar"
 
-
-const Layout = () => {
+const Layout = ({ children }) => {
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <div className="content min-h-screen">
-      {/* {children} */}
-
+        {children} {/* This will render the content passed into Layout */}
       </div>
-    
-    
-    
-      <Footer/>
+      <Footer />
     </div>
   )
 }
-export default Layout
+
+export default Layout;

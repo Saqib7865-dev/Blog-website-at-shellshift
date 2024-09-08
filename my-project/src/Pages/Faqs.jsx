@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Layout from '../components/Layout';
 
 const FAQs = () => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -98,42 +99,44 @@ const FAQs = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>Frequently Asked Questions</h2>
-      <div style={styles.faqList}>
-        {faqs.map((faq, index) => (
-          <div 
-            key={index} 
-            style={{ 
-              ...styles.faqItem, 
-              ...(activeIndex === index ? styles.faqItemHover : {}) 
-            }}
-            onClick={() => handleToggle(index)}
-          >
-            <div style={{ 
-              ...styles.question, 
-              ...(activeIndex === index ? styles.questionActive : {}) 
-            }}>
-              {faq.question}
-              <span 
-                style={{ 
-                  ...styles.icon, 
-                  ...(activeIndex === index ? styles.iconActive : {}) 
-                }}
-              >
-                ▼
-              </span>
-            </div>
-            <div style={{ 
-              ...styles.answer, 
-              ...(activeIndex === index ? styles.answerVisible : {}) 
-            }}>
-              {faq.answer}
-            </div>
-          </div>
-        ))}
+<Layout>
+<div style={styles.container}>
+<h2 style={styles.heading}>Frequently Asked Questions</h2>
+<div style={styles.faqList}>
+  {faqs.map((faq, index) => (
+    <div 
+      key={index} 
+      style={{ 
+        ...styles.faqItem, 
+        ...(activeIndex === index ? styles.faqItemHover : {}) 
+      }}
+      onClick={() => handleToggle(index)}
+    >
+      <div style={{ 
+        ...styles.question, 
+        ...(activeIndex === index ? styles.questionActive : {}) 
+      }}>
+        {faq.question}
+        <span 
+          style={{ 
+            ...styles.icon, 
+            ...(activeIndex === index ? styles.iconActive : {}) 
+          }}
+        >
+          ▼
+        </span>
+      </div>
+      <div style={{ 
+        ...styles.answer, 
+        ...(activeIndex === index ? styles.answerVisible : {}) 
+      }}>
+        {faq.answer}
       </div>
     </div>
+  ))}
+</div>
+</div>
+</Layout>
   );
 };
 
