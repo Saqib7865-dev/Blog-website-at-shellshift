@@ -42,7 +42,7 @@ const Footer = () => {
       </div>
      
     </footer>
-    <div className="bg-[#1E201E] text-white text-center py-2 ">
+    <div className="bg-[#1E201E] text-white text-center py-6 ">
         copyright © 2024
       </div>
       </div>
