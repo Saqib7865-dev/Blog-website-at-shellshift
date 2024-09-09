@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -9,40 +8,94 @@ const Navbar = () => {
   };
 
   const styles = {
-    navbar: 'flex justify-between items-center py-6 px-5 text-white shadow-md sticky top-0 z-50',
-    logo: 'text-2xl font-bold text-teal-400 ml-6',
-    navLinks: 'flex gap-8 list-none mr-12 cursor-pointer font-bold',
-    mobileMenuIcon: 'hidden text-2xl bg-none border-none text-white cursor-pointer',
-    navLinksMobile: 'flex flex-col fixed top-0 right-0 bg-gray-700 w-64 h-screen items-center justify-center gap-5 p-5 transform transition-transform duration-300 ease-out',
-    navLinksOpen: 'translate-x-0',
-    navLinksClosed: 'translate-x-full',
+    navbar: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: '25px 20px',
+      background: 'rgb(69,71,75)',
+      color: 'White',
+      position: 'relative',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+    },
+    logo: {
+      fontSize: '24px',
+      fontWeight: 'bold',
+      color: 'rgb(47,212,191)',
+      marginLeft: '10px',
+    },
+    navLinks: {
+      display: 'flex',
+      gap: '30px',
+      listStyle: 'none',
+      marginRight: '50px',
+      cursor:'pointer',
+      fontWeight: 'bold',
+    },
+    mobileMenuIcon: {
+      display: 'none',
+      fontSize: '24px',
+      background: 'none',
+      border: 'none',
+      color: '#fff',
+      cursor: 'pointer',
+    },
+    navLinksMobile: {
+      display: 'flex',
+      flexDirection: 'column',
+      position: 'fixed',
+      top: 0,
+      right: 0,
+      background: '#34495e',
+      width: '250px',
+      height: '100vh',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '20px',
+      padding: '20px',
+      transform: 'translateX(100%)',
+      transition: 'transform 0.3s ease',
+    },
+    navLinksOpen: {
+      transform: 'translateX(0)',
+    },
+    mobileMenuButton: {
+      display: 'none',
+    },
+    mobileNavItem: {
+      textDecoration: 'none',
+      color: '#fff',
+      fontSize: '20px',
+      transition: 'color 0.3s ease',
+    },
+    mobileMenuButtonActive: {
+      display: 'block',
+    }
   };
 
+  if (window.innerWidth <= 500) {
+    styles.navLinks.display = 'none';
+    styles.mobileMenuIcon.display = 'block';
+  } else {
+    styles.navLinks.display = 'flex';
+    styles.mobileMenuIcon.display = 'none';
+  }
+
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.logo}><img className='h-10' src='/images/logo.png' alt='logo'></img></div>
+    <nav style={styles.navbar}>
+      <div style={styles.logo}>Company Logo</div>
       <ul
-        className={`${styles.navLinks} ${isMobileMenuOpen ? styles.navLinksOpen : ''}`}
+        style={{ ...styles.navLinks, ...(isMobileMenuOpen ? styles.navLinksOpen : {}) }}
         onClick={() => setIsMobileMenuOpen(false)}
       >
-        <li>
-          <Link to="/" className=" text-black hover:text-teal-500">Home</Link>
-        </li>
-        <li>
-          <Link to="/my-blogs" className="text-black hover:text-teal-500">My Blogs</Link>
-        </li>
-        <li>
-          <Link to="/faqs" className="text-black hover:text-teal-500">Faqs</Link>
-        </li>
-        <li>
-          <Link to="/privacy-policy" className="text-black hover:text-teal-500">Privacy Policy</Link>
-        </li>
-        <li>
-          <Link to="/contact-us" className="text-black hover:text-teal-500">Contact Us</Link>
-        </li>
+        <li >Home</li>
+        <li >My Blogs</li>
+        <li >Faqs</li>
+        <li >Privacy Policy</li>
+        <li >Contact Us</li>
       </ul>
       <button
-        className={styles.mobileMenuIcon}
+        style={styles.mobileMenuIcon}
         onClick={handleMobileMenuToggle}
       >
         {isMobileMenuOpen ? <i className="fas fa-times"></i> : <i className="fas fa-bars"></i>}
@@ -52,3 +105,10 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+
+
+
+

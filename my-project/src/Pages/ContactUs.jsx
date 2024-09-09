@@ -110,8 +110,7 @@ const styles = {
     borderRadius: "20px",
     boxShadow:
       "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-    // boxShadow:'5px 5px 25px 4px rgba(0,0,0,0.87)',
-    maxWidth: "900px",
+    maxWidth: "90%",
     width: "100%",
     backdropFilter: "blur(10px)",
     border: "1px solid rgba(255, 255, 255, 0.18)",
