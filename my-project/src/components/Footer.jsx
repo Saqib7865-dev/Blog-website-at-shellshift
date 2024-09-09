@@ -10,7 +10,7 @@ const Footer = () => {
             <li className="mb-2">Sheduling</li>
             <li className="mb-2">Marketing Tools</li>
             <li className="mb-2">Feature List</li>
-            <li>pdf to powerpoint</li>
+            <li>Advertising</li>
           </ul>
         </div>
         
