@@ -9,7 +9,7 @@ const Navbar = () => {
   };
 
   const styles = {
-    navbar: 'flex justify-between items-center py-6 px-5 text-white shadow-md ',
+    navbar: 'flex justify-between items-center py-6 px-5 bg-white	 text-white shadow-md ',
     logo: 'text-2xl font-bold text-teal-400 ml-10',
     navLinks: 'flex gap-8 list-none mr-12 cursor-pointer font-bold',
     mobileMenuIcon: 'hidden text-2xl bg-none border-none text-white cursor-pointer',
@@ -19,7 +19,7 @@ const Navbar = () => {
   };
 
   return (
-  <div className='sticky top-0 z-50'>
+  <div className='static top-0 z-50 w-full'>
   <nav className={styles.navbar}>
   <div className={styles.logo}><img className='h-12' src='/images/logo.png' alt='logo'></img></div>
   <ul
