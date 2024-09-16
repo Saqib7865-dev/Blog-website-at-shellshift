@@ -30,7 +30,7 @@ const Navbar = () => {
       <Link to="/" className="text-black hover:text-teal-500">Home</Link>
     </li>
     <li>
-      <Link to="/my-blogs" className="text-black hover:text-teal-500">My Blogs</Link>
+      <Link to="/my-blogs" className="text-black hover:text-teal-500">All Blogs</Link>
     </li>
     <li>
       <Link to="/faqs" className="text-black hover:text-teal-500">Faqs</Link>
