@@ -45,53 +45,51 @@ const ContactUs = () => {
   };
 
   return (
-
-<Layout>
-<div style={styles.container}>
-<form style={styles.form} onSubmit={handleSubmit}>
-  <h2 style={styles.title}>CONTACT US</h2>
-  <input
-    style={styles.input}
-    type="text"
-    name="name"
-    placeholder="Your Name"
-    value={formData.name}
-    onChange={handleChange}
-    required
-  />
-  <input
-    style={styles.input}
-    type="email"
-    name="email"
-    placeholder="Your Email"
-    value={formData.email}
-    onChange={handleChange}
-    required
-  />
-  <input
-    style={styles.input}
-    type="Subjct"
-    name="subject"
-    placeholder="Subject"
-    value={formData.subject}
-    onChange={handleChange}
-    required
-  />
-  <textarea
-    style={styles.textarea}
-    name="message"
-    placeholder="Your Message"
-    value={formData.message}
-    onChange={handleChange}
-    required
-  />
-  <button style={styles.button} type="submit">
-    Send Message
-  </button>
-</form>
-</div>
-</Layout>
-
+    <Layout>
+      <div style={styles.container}>
+        <form style={styles.form} onSubmit={handleSubmit}>
+          <h2 style={styles.title}>CONTACT US</h2>
+          <input
+            style={styles.input}
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+          <input
+            style={styles.input}
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            style={styles.input}
+            type="Subjct"
+            name="subject"
+            placeholder="Subject"
+            value={formData.subject}
+            onChange={handleChange}
+            required
+          />
+          <textarea
+            style={styles.textarea}
+            name="message"
+            placeholder="Your Message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+          />
+          <button style={styles.button} type="submit">
+            Send Message
+          </button>
+        </form>
+      </div>
+    </Layout>
   );
 };
 

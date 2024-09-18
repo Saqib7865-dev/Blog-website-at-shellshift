@@ -4,7 +4,6 @@ const MyBlogs = () => {
   return (
     <Layout>
       <h1>this is blog component</h1>
-  
     </Layout>
   )
 }
