@@ -22,7 +22,9 @@ const MyModal = ({ title, content }) => {
           <p className="py-4 text-center">{content}</p>
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn btn-primary">Close</button>
+              <button className="btn btn-primary" onClick={handleClose}>
+                Close
+              </button>
             </form>
           </div>
         </div>
@@ -35,11 +37,11 @@ const Home = () => {
   return (
     <Layout>
       <div className="homeContainer mx-auto py-7 flex">
-        <div className="recentCards w-7/12 p-3 ">
+        <div className="recentCards w-8/12 p-3 ">
           <h1 className="mb-5 font-serif font-bold text-2xl px-4">
             Recent Cards
           </h1>
-          <div className="cards flex justify-evenly flex-wrap items-center overflow-y-scroll h-screen">
+          <div className="cards flex justify-evenly flex-wrap items-center overflow-y-scroll h-screen py-5">
             {data.slice(0, 6).map((data, index) => {
               return (
                 <div
@@ -67,7 +69,7 @@ const Home = () => {
             })}
           </div>
         </div>
-        <div className="mostViewCard w-5/12 h-screen p-3">
+        <div className="mostViewCard w-4/12 h-screen p-3">
           <h1 className="mb-5 font-serif font-bold text-2xl px-5">
             Most Viewed Card
           </h1>
@@ -100,8 +102,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-    
-
     </Layout>
   );
 };
