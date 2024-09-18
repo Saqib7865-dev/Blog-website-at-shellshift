@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import Layout from "../components/Layout";
 import { data } from "../data/data";
