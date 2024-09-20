@@ -6,7 +6,8 @@ export const data = [
   },
   {
     title: "Second Blog Post",
-    content: "This is the content of the second blog post.",
+    content:
+      "This is the content of the second blog post. This is the content of the second blog post. This is the content of the second blog post. This is the content of the second blog post. This is the content of the second blog post. This is the content of the second blog post. This is the content of the second blog post. This is the content of the second blog post. This is the content of the second blog post. This is the content of the second blog post. This is the content of the second blog      post. This is the content of the second blog post. This is the content",
     date: "2021-02-01",
   },
   {
