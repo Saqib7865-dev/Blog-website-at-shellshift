@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 import { data } from "../data/data";
 import { Link } from "react-router-dom";
 const MyModal = ({ title, content, date }) => {
-  const [isOpen, setIsOpen] = useState(false); // Modal state
+  const [isOpen, setIsOpen] = useState(false); 
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
   return (
@@ -28,23 +28,28 @@ const MyModal = ({ title, content, date }) => {
             <h2 className="card-title font-bold mb-2">{title}</h2>
             <p className="pt-2 h-24 overflow-hidden mb-2">
               {content.slice(0, 150)}...{" "}
-              <Link
-                to="/my-blogs"
-                className="btn btn-success bg-green-400 text-white font-bold px-4 py-2 border rounded-md mt-1 inline-block "
-              >
-                Read full Blog
-              </Link>
+             
             </p>
-            <div className="card-date flex-col justify-end">
-              <p className="w-full text-end px-5 pt-3">{date}</p>
-            </div>
+            
             <form method="dialog">
               <button
-                className="btn btn-primary border rounded-md px-4 py-2 bg-red-400 text-white font-bold"
+                className="btn btn-dark border rounded-md px-4 py-2 bg-zinc-700 text-white font-bold"
                 onClick={handleClose}
               >
                 Close
               </button>
+
+              <Link
+                to="/my-blogs"
+                className="btn btn-success bg-teal-500 text-white ml-2 font-bold px-4 py-2 border rounded-md mt-1 inline-block "
+              >
+                Read full Blog
+              </Link>
+
+              <div className="card-date inline text-right border">
+              <p className="font-semibold inline  text-zinc-700 px-5 ">{date}</p>
+            </div>
+
             </form>
           </div>
         </div>
