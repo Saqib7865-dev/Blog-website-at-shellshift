@@ -5,6 +5,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ContactUs from "./pages/ContactUs";
 import { Route, Routes } from "react-router-dom";
 
+
 function App() {
   return (
     <Routes>

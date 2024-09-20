@@ -59,8 +59,8 @@ const Home = () => {
     <Layout>
       <div className={`homeContainer mx-auto py-7 flex`}>
         <div className="recentCards w-8/12 p-3 ">
-          <h1 className="mb-5 font-serif font-bold text-2xl px-14">
-            Recent Cards
+          <h1 className="mb-5 font-serif  font-bold text-2xl px-4">
+            <p className="cursor-pointer hover:text-teal-500 inline">Recent Blogs</p>
           </h1>
           <div className="w-full cards flex justify-evenly flex-wrap items-center overflow-y-scroll h-screen py-5">
             {data.slice(0, 6).map((data, index) => {
@@ -94,8 +94,8 @@ const Home = () => {
             })}
           </div>
         </div>
-        <div className="mostViewCard w-4/12 h-screen p-3 flex flex-col gap-14 overflow-y-scroll">
-          <h1 className="mb-5 font-serif font-bold text-2xl px-8">
+        <div className="mostViewCard w-4/12 h-screen p-3">
+          <h1 className="mb-5 font-serif font-bold text-2xl px-5">
             Most Viewed Card
           </h1>
           <div className="impCard px-10">
