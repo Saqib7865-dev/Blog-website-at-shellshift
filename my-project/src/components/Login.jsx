@@ -1,7 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigator = useNavigate()
   return (
 
     <div>
@@ -43,10 +45,11 @@ const Login = () => {
                 </label>
                 <div className="text-sm">
                   <a
-                    href="#"
+                    href=""
                     className="font-semibold text-teal-500 hover:text-teal-400"
+                    onClick={()=>navigator("/resetpassword")}
                   >
-                    Forgot password?
+                    Reset password?
                   </a>
                 </div>
               </div>
