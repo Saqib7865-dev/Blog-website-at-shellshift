@@ -32,7 +32,7 @@ const MyModal = ({ title, content, date }) => {
 
             <form method="dialog">
               <button
-                className="btn btn-dark border rounded-md px-4 py-2 bg-zinc-700 text-white font-bold"
+                className="btn btn-dark border rounded-md px-4 py-2 bg-zinc-700  text-white font-bold"
                 onClick={handleClose}
               >
                 Close
@@ -40,12 +40,12 @@ const MyModal = ({ title, content, date }) => {
 
               <Link
                 to="/my-blogs"
-                className="btn btn-success bg-teal-500 text-white ml-2 font-bold px-4 py-2 border rounded-md mt-1 inline-block "
+                className="btn btn-success bg-teal-500  text-white ml-2 font-bold px-4 py-2 border rounded-md mt-1 inline-block "
               >
                 Read full Blog
               </Link>
 
-              <div className="card-date  m-3 inline text-center  border  font-semibold inline  text-zinc-700 px-5 ">
+              <div className="card-date  m-3 inline text-center  border ml-65  font-semibold inline  text-zinc-700 px-5 ">
                   {date}
               </div>
             </form>
@@ -63,7 +63,7 @@ const Home = () => {
       <div className={`homeContainer mx-auto py-7 flex`}>
         <div className="recentCards w-8/12 p-3 ">
           <h1 className="mb-5 font-serif  font-bold text-2xl px-4">
-            <p className="cursor-pointer hover:text-teal-500 inline">
+            <p className="cursor-pointer hover:text-teal-500  inline">
               Recent Blogs
             </p>
           </h1>
@@ -91,7 +91,7 @@ const Home = () => {
                       />
                     </p>
                     <div className="card-date flex-col justify-end">
-                      <p className="w-full text-end px-5 pt-3">{data.date}</p>
+                      <p className="w-full end px-5 pt-3">{data.date}</p>
                     </div>
                   </div>
                 </div>
