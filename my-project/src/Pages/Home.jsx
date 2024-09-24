@@ -45,8 +45,8 @@ const MyModal = ({ title, content, date }) => {
                 Read full Blog
               </Link>
 
-              <div className="card-date  m-3 inline text-center  border ml-65  font-semibold inline  text-zinc-700 px-5 ">
-                  {date}
+              <div className="card-date  m-3 text-center  border ml-65  font-semibold inline  text-zinc-700 px-5 ">
+                {date}
               </div>
             </form>
           </div>
@@ -67,7 +67,7 @@ const Home = () => {
               Recent Blogs
             </p>
           </h1>
-           <div className="w-full cards flex justify-evenly flex-wrap items-center overflow-y-scroll h-screen py-5">
+          <div className="w-full cards flex justify-evenly flex-wrap items-center overflow-y-scroll h-screen py-5">
             {data.slice(0, 6).map((data, index) => {
               return (
                 <div
