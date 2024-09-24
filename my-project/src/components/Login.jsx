@@ -46,6 +46,7 @@ const Login = () => {
                   <a
                     href=""
                     className="font-semibold text-teal-500 hover:text-teal-400"
+                    onClick={() => navigator("/resetpassword")}
                   >
                     Reset password?
                   </a>
