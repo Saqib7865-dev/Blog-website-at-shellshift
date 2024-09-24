@@ -4,6 +4,7 @@ import FAQs from "./pages/FAQs";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ContactUs from "./pages/ContactUs";
 import Login from "./components/Login";
+import CRUD from "./components/CRUD";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/crud" element={<CRUD />} />
     </Routes>
   );
 }
