@@ -66,7 +66,12 @@ const CRUD = () => {
             All Blogs
           </p>
         </h1>
-        <h2>Create a new Blog</h2>
+        <button
+          className="w-full py-5 btn bg-green-400 font-bold text-white"
+          onClick={() => alert("You wanna create me!")}
+        >
+          Create a new blog
+        </button>
         <div className="w-full cards flex justify-evenly flex-wrap items-center py-5">
           {data.map((data, index) => {
             return (
@@ -89,6 +94,14 @@ const CRUD = () => {
                   </p>
                   <div className="card-date flex-col justify-end">
                     <p className="w-full end px-5 pt-3">{data.date}</p>
+                  </div>
+                  <div className="mt-2">
+                    <button className="btn bg-green-400 px-4 py-2 rounded-md mr-2">
+                      Update
+                    </button>
+                    <button className="btn bg-red-400 px-4 py-2 rounded-md mr-2">
+                      Delete
+                    </button>
                   </div>
                 </div>
               </div>

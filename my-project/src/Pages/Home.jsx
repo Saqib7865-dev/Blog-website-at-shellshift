@@ -99,7 +99,7 @@ const Home = () => {
             })}
           </div>
         </div>
-        <div className="mostViewCard w-4/12 h-screen p-3">
+        <div className="mostViewCard w-4/12 h-screen p-3 overflow-y-scroll">
           <h1 className="mb-5 font-serif font-bold text-2xl px-5">
             Most Viewed Card
           </h1>
