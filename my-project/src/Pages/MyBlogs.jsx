@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-import { data } from "../data/data";
+// import { data } from "../data/data";
 import { Link } from "react-router-dom";
+import axios from "axios";
 const MyModal = ({ title, content, date }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
+
   return (
     <div>
       <button className="btn text-blue-500" onClick={handleOpen}>
@@ -57,7 +59,16 @@ const MyModal = ({ title, content, date }) => {
 };
 
 const MyBlogs = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  // const [isModalVisible, setIsModalVisible] = useState(false);
+  const [blogs, setBlogs] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3005/readBlog")
+      .then((response) => setBlogs(response))
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [blogs]);
   return (
     <Layout>
       <div className={`BlogsContainer mx-auto py-7 flex`}>
@@ -68,36 +79,40 @@ const MyBlogs = () => {
             </p>
           </h1>
 
-          <div className="w-full cards flex justify-evenly flex-wrap items-center py-5">
-            {data.map((data, index) => {
-              return (
-                <div
-                  key={index}
-                  className="card bg-base-100 w-96 shadow-xl py-4"
-                >
-                  <figure>
-                    <img
-                      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                      alt="Shoes"
-                    />
-                  </figure>
-                  <div className="card-body p-3">
-                    <h2 className="card-title">{data.title}</h2>
-                    <p className="pt-2">
-                      {data.content.slice(0, 20)}...{" "}
-                      <MyModal
-                        title={data.title}
-                        content={data.content}
-                        date={data.date}
+          <div className="w-full cards gap-3 px-10 flex justify-evenly flex-wrap items-center py-5">
+            {blogs.length === 0 ? (
+              <div>No record found</div>
+            ) : (
+              blogs.data.map((data, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="card bg-base-100 w-96 shadow-xl py-4"
+                  >
+                    <figure>
+                      <img
+                        src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                        alt="Shoes"
                       />
-                    </p>
-                    <div className="card-date flex-col justify-end">
-                      <p className="w-full end px-5 pt-3">{data.date}</p>
+                    </figure>
+                    <div className="card-body p-3">
+                      <h2 className="card-title">{data.title}</h2>
+                      <p className="pt-2">
+                        {data.content.slice(0, 20)}...{" "}
+                        <MyModal
+                          title={data.title}
+                          content={data.content}
+                          date={data.date}
+                        />
+                      </p>
+                      <div className="card-date flex-col justify-end">
+                        <p className="w-full end px-5 pt-3">{data.date}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
         </div>
       </div>

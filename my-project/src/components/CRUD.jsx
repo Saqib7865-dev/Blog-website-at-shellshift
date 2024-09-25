@@ -1,63 +1,27 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
-import Layout from "../components/Layout";
-import { data } from "../data/data";
-import { Link } from "react-router-dom";
-const MyModal = ({ title, content, date }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleOpen = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false);
-  return (
-    <div>
-      <button className="btn text-blue-500" onClick={handleOpen}>
-        Read More!
-      </button>
-      <dialog
-        className="modal z-50 absolute top-2/4 left-2/4 transform translate-x-[-50%] translate-y-[-50%] rounded-lg p-6"
-        open={isOpen}
-      >
-        <div className="card bg-base-100 relative rounded-lg shadow-xl py-4">
-          <figure>
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-              alt="Shoes"
-            />
-          </figure>
-          <div className="card-body p-3">
-            <h2 className="card-title font-bold mb-2">{title}</h2>
-            <p className="pt-2 h-24 overflow-hidden mb-2">
-              {content.slice(0, 150)}...{" "}
-            </p>
-
-            <form method="dialog">
-              <button
-                className="btn btn-dark border rounded-md px-4 py-2 bg-zinc-700  text-white font-bold"
-                onClick={handleClose}
-              >
-                Close
-              </button>
-
-              <Link
-                to="/my-blogs"
-                className="btn btn-success bg-teal-500  text-white ml-2 font-bold px-4 py-2 border rounded-md mt-1 inline-block "
-              >
-                Read full Blog
-              </Link>
-
-              <div className="card-date  m-3 text-center  border ml-65  font-semibold inline  text-zinc-700 px-5 ">
-                {date}
-              </div>
-            </form>
-          </div>
-        </div>
-      </dialog>
-    </div>
-  );
-};
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Form from "./Form";
 
 const CRUD = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [blogs, setBlogs] = useState([]);
+  const [createBlog, setCreateBlog] = useState(false);
+  const [update, setUpdate] = useState(false);
+  const [updateableData, setUpdateableData] = useState([]);
+  const handleDelete = (id) => {
+    axios
+      .delete(`http://localhost:3005/deleteBlog`, { id })
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3005/readBlog")
+      .then((response) => setBlogs(response))
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <div className={`CRUDContainer mx-auto py-7 flex`}>
       <div className="recentCards p-3 ">
@@ -68,45 +32,65 @@ const CRUD = () => {
         </h1>
         <button
           className="w-full py-5 btn bg-green-400 font-bold text-white"
-          onClick={() => alert("You wanna create me!")}
+          onClick={() => setCreateBlog(true)}
         >
           Create a new blog
         </button>
-        <div className="w-full cards flex justify-evenly flex-wrap items-center py-5">
-          {data.map((data, index) => {
-            return (
-              <div key={index} className="card bg-base-100 w-96 shadow-xl py-4">
-                <figure>
-                  <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Shoes"
-                  />
-                </figure>
-                <div className="card-body p-3">
-                  <h2 className="card-title">{data.title}</h2>
-                  <p className="pt-2">
-                    {data.content.slice(0, 20)}...{" "}
-                    <MyModal
-                      title={data.title}
-                      content={data.content}
-                      date={data.date}
+        <div className="w-full cards gap-4 flex justify-evenly flex-wrap items-center py-5">
+          {blogs.length === 0 ? (
+            <div>No record found</div>
+          ) : (
+            blogs.data.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className="card bg-base-100 w-96 shadow-xl py-4"
+                >
+                  <figure>
+                    <img
+                      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                      alt="Shoes"
                     />
-                  </p>
-                  <div className="card-date flex-col justify-end">
-                    <p className="w-full end px-5 pt-3">{data.date}</p>
-                  </div>
-                  <div className="mt-2">
-                    <button className="btn bg-green-400 px-4 py-2 rounded-md mr-2">
-                      Update
-                    </button>
-                    <button className="btn bg-red-400 px-4 py-2 rounded-md mr-2">
-                      Delete
-                    </button>
+                  </figure>
+                  <div className="card-body p-3">
+                    <h2 className="card-title">{item.title}</h2>
+                    <p className="pt-2 text-justify my-1">{item.content}</p>
+                    <div className="card-date text-end ">
+                      <p className="w-full end px-5 pt-3">{item.date}</p>
+                    </div>
+                    <div className="mt-2">
+                      <button
+                        className="btn bg-green-400 px-4 py-2 rounded-md mr-2"
+                        onClick={() => {
+                          setUpdate(true);
+                          setUpdateableData(item);
+                        }}
+                      >
+                        Update
+                      </button>
+                      <button
+                        className="btn bg-red-400 px-4 py-2 rounded-md mr-2"
+                        onClick={() => handleDelete(item._id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
+          <div className={`${createBlog ? "block" : "hidden"} formDiv`}>
+            <Form blogTitle="Create Blog" setFormDisplay={setCreateBlog} />
+          </div>
+          <div className={`${update ? "block" : "hidden"} formDiv`}>
+            <Form
+              blogTitle="Update Blog"
+              setFormDisplay={setUpdate}
+              updateableData={updateableData}
+              setUpdateableData={setUpdateableData}
+            />
+          </div>
         </div>
       </div>
     </div>

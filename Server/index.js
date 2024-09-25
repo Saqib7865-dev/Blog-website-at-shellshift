@@ -17,6 +17,17 @@ app.get("/readBlog", async (req, res) => {
     .then((data) => res.json(data))
     .catch((err) => res.json(err));
 });
+app.delete("/deleteBlog", async (req, res) => {
+  const { id } = req.body;
+
+  const deletedBlog = await BlogProject.findByIdAndDelete(id);
+
+  if (!deletedBlog) {
+    return res.status(404).json({
+      message: "Blog not found",
+    });
+  }
+});
 app.listen(3005, () => {
   console.log("listening on port 3001");
 });
