@@ -11,7 +11,7 @@ const CRUD = () => {
   const [updateableData, setUpdateableData] = useState([]);
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:3005/deleteBlog`, { id })
+      .delete(`http://localhost:3005/deleteBlog/${id}`)
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };
@@ -21,7 +21,7 @@ const CRUD = () => {
       .get("http://localhost:3005/readBlog")
       .then((response) => setBlogs(response))
       .catch((err) => console.log(err));
-  }, []);
+  }, [blogs]);
   return (
     <div className={`CRUDContainer mx-auto py-7 flex`}>
       <div className="recentCards p-3 ">
@@ -31,7 +31,7 @@ const CRUD = () => {
           </p>
         </h1>
         <button
-          className="w-full py-5 btn bg-green-400 font-bold text-white"
+          className="min-w-[100px] py-5  px-5 btn bg-green-400 font-bold text-white"
           onClick={() => setCreateBlog(true)}
         >
           Create a new blog
@@ -53,7 +53,7 @@ const CRUD = () => {
                     />
                   </figure>
                   <div className="card-body p-3">
-                    <h2 className="card-title">{item.title}</h2>
+                    <h2 className="card-title font-bold text-2xl">{item.title}</h2>
                     <p className="pt-2 text-justify my-1">{item.content}</p>
                     <div className="card-date text-end ">
                       <p className="w-full end px-5 pt-3">{item.date}</p>
@@ -81,16 +81,19 @@ const CRUD = () => {
             })
           )}
           <div className={`${createBlog ? "block" : "hidden"} formDiv`}>
-            <Form blogTitle="Create Blog" setFormDisplay={setCreateBlog} />
+            <Form
+              blogTitle="Create Blog"
+              setFormDisplay={setCreateBlog}
+            />
           </div>
-          <div className={`${update ? "block" : "hidden"} formDiv`}>
+          {/* <div className={`${update ? "block" : "hidden"} formDiv`}>
             <Form
               blogTitle="Update Blog"
               setFormDisplay={setUpdate}
+              updateBlog={update}
               updateableData={updateableData}
-              setUpdateableData={setUpdateableData}
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

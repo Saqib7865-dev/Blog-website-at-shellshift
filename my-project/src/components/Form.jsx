@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-const Form = ({
-  blogTitle,
-  setFormDisplay,
-  updateableData,
-  setUpdateableData,
-}) => {
+const Form = ({ blogTitle, setFormDisplay }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const handleSubmit = (e) => {
