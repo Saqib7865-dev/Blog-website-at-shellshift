@@ -1,9 +1,22 @@
 import React, { useState } from "react";
 import axios from "axios";
-const Form = ({ blogTitle, setFormDisplay }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const handleSubmit = (e) => {
+const Form = ({ blogTitle, setFormDisplay, updateBlog, updateableData }) => {
+  const [title, setTitle] = useState(`${updateableData?.title || ""}`);
+  const [content, setContent] = useState(`${updateableData?.content || ""}`);
+  const handleUpdateSubmit = (e) => {
+    e.preventDefault();
+    if (title == "" && content == "") {
+      alert("Please fill in the form");
+      return;
+    } else {
+      axios.put(`http://localhost:3005/updateBlog/${updateableData._id}`, {
+        title,
+        content,
+      });
+      setFormDisplay(false);
+    }
+  };
+  const handleCreateSubmit = (e) => {
     e.preventDefault();
     if (title == "" && content == "") {
       alert("Please fill in the form");
@@ -31,6 +44,7 @@ const Form = ({ blogTitle, setFormDisplay }) => {
           <label htmlFor="title" className="block text-gray-700 font-bold mb-2">
             Title
           </label>
+
           <input
             type="text"
             id="title"
@@ -65,7 +79,7 @@ const Form = ({ blogTitle, setFormDisplay }) => {
         <button
           type="submit"
           className="btn bg-green-400 px-4 py-2 rounded-md mr-2"
-          onClick={handleSubmit}
+          onClick={updateBlog ? handleUpdateSubmit : handleCreateSubmit}
         >
           Submit
         </button>

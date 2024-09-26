@@ -18,7 +18,7 @@ app.post("/createBlog", async (req, res) => {
     .catch((err) => res.json(err));
 });
 
-app.put("/updateBlog", async (req, res) => {
+app.put("/updateBlog/:id", async (req, res) => {
   const { id } = req.params;
   const updatedBlog = await BlogProject.findByIdAndUpdate(id, req.body, {
     new: true,
@@ -31,8 +31,6 @@ app.put("/updateBlog", async (req, res) => {
 });
 app.delete("/deleteBlog/:id", async (req, res) => {
   const { id } = req.params;
-  console.log(id);
-
   const deletedBlog = await BlogProject.findByIdAndDelete(id);
   if (!deletedBlog) {
     return res.status(404).json({

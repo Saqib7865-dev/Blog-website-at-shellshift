@@ -86,14 +86,14 @@ const CRUD = () => {
               setFormDisplay={setCreateBlog}
             />
           </div>
-          {/* <div className={`${update ? "block" : "hidden"} formDiv`}>
+          <div className={`${update ? "block" : "hidden"} formDiv`}>
             <Form
               blogTitle="Update Blog"
               setFormDisplay={setUpdate}
               updateBlog={update}
               updateableData={updateableData}
             />
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
