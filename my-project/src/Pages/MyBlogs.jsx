@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 // import { data } from "../data/data";
 import { Link } from "react-router-dom";
 import axios from "axios";
-const MyModal = ({ title, content, date }) => {
+const MyModal = ({ title, content, uploadedTime }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
@@ -48,7 +48,7 @@ const MyModal = ({ title, content, date }) => {
               </Link>
 
               <div className="card-date  m-3 text-center  border ml-65  font-semibold inline  text-zinc-700 px-5 ">
-                {date}
+                Uploaded {uploadedTime}
               </div>
             </form>
           </div>
@@ -69,6 +69,36 @@ const MyBlogs = () => {
         console.log(error);
       });
   }, [blogs]);
+  // Date object
+  function formatUploadedTime(isoTimestamp) {
+    const uploadedDate = new Date(isoTimestamp);
+    const currentTime = new Date();
+    const timeDiff = currentTime - uploadedDate;
+
+    const seconds = Math.floor(timeDiff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const weeks = Math.floor(days / 7);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(days / 365);
+
+    if (seconds < 60) {
+      return "just now";
+    } else if (minutes < 60) {
+      return `${minutes} minutes ago`;
+    } else if (hours < 24) {
+      return `${hours} hours ago`;
+    } else if (days < 7) {
+      return `${days} days ago`;
+    } else if (weeks < 4) {
+      return `${weeks} weeks ago`;
+    } else if (months < 12) {
+      return `${months} months ago`;
+    } else {
+      return `${years} years ago`;
+    }
+  }
   return (
     <Layout>
       <div className={`BlogsContainer mx-auto py-7 flex`}>
@@ -84,6 +114,7 @@ const MyBlogs = () => {
               <div>No record found</div>
             ) : (
               blogs.data.map((data, index) => {
+                const uploadedTime = formatUploadedTime(data.date);
                 return (
                   <div
                     key={index}
@@ -102,11 +133,13 @@ const MyBlogs = () => {
                         <MyModal
                           title={data.title}
                           content={data.content}
-                          date={data.date}
+                          uploadedTime={uploadedTime}
                         />
                       </p>
                       <div className="card-date flex-col justify-end">
-                        <p className="w-full end px-5 pt-3">{data.date}</p>
+                        <p className="w-full end px-5 pt-3">
+                          Uploaded {uploadedTime}
+                        </p>
                       </div>
                     </div>
                   </div>

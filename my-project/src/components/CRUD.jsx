@@ -13,7 +13,7 @@ const CRUD = () => {
     axios
       .delete(`http://localhost:3005/deleteBlog/${id}`)
       .then((response) => console.log(response))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.message));
   };
 
   useEffect(() => {
@@ -22,6 +22,37 @@ const CRUD = () => {
       .then((response) => setBlogs(response))
       .catch((err) => console.log(err));
   }, [blogs]);
+
+  // Date object
+  function formatUploadedTime(isoTimestamp) {
+    const uploadedDate = new Date(isoTimestamp);
+    const currentTime = new Date();
+    const timeDiff = currentTime - uploadedDate;
+
+    const seconds = Math.floor(timeDiff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const weeks = Math.floor(days / 7);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(days / 365);
+
+    if (seconds < 60) {
+      return "just now";
+    } else if (minutes < 60) {
+      return `${minutes} minutes ago`;
+    } else if (hours < 24) {
+      return `${hours} hours ago`;
+    } else if (days < 7) {
+      return `${days} days ago`;
+    } else if (weeks < 4) {
+      return `${weeks} weeks ago`;
+    } else if (months < 12) {
+      return `${months} months ago`;
+    } else {
+      return `${years} years ago`;
+    }
+  }
   return (
     <div className={`CRUDContainer mx-auto py-7 flex`}>
       <div className="recentCards p-3 ">
@@ -41,6 +72,8 @@ const CRUD = () => {
             <div>No record found</div>
           ) : (
             blogs.data.map((item, index) => {
+              const uploadedTime = formatUploadedTime(item.date);
+
               return (
                 <div
                   key={index}
@@ -53,10 +86,14 @@ const CRUD = () => {
                     />
                   </figure>
                   <div className="card-body p-3">
-                    <h2 className="card-title font-bold text-2xl">{item.title}</h2>
+                    <h2 className="card-title font-bold text-2xl">
+                      {item.title}
+                    </h2>
                     <p className="pt-2 text-justify my-1">{item.content}</p>
                     <div className="card-date text-end ">
-                      <p className="w-full end px-5 pt-3">{item.date}</p>
+                      <p className="w-full end px-5 pt-3">
+                        Uploaded {uploadedTime}
+                      </p>
                     </div>
                     <div className="mt-2">
                       <button
@@ -81,10 +118,7 @@ const CRUD = () => {
             })
           )}
           <div className={`${createBlog ? "block" : "hidden"} formDiv`}>
-            <Form
-              blogTitle="Create Blog"
-              setFormDisplay={setCreateBlog}
-            />
+            <Form blogTitle="Create Blog" setFormDisplay={setCreateBlog} />
           </div>
           <div className={`${update ? "block" : "hidden"} formDiv`}>
             <Form
