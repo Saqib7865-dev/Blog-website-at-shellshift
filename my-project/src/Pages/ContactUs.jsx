@@ -22,10 +22,10 @@ const ContactUs = () => {
 
     emailjs
       .send(
-        "service_vm1mwci", // Replace with your EmailJS service ID
-        "template_hxvu2z8", // Replace with your EmailJS template ID
+        "", // Replace with your EmailJS service ID
+        "", // Replace with your EmailJS template ID
         formData,
-        "Mr Engineer" // Replace with your EmailJS user ID
+        "" // Replace with your EmailJS user ID
       )
       .then((response) => {
         console.log("SUCCESS!", response.status, response.text);
