@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -7,18 +7,19 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigator = useNavigate();
-
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/login", { email, password });
-      if (res.data.token) {
-        // Store the JWT token in localStorage
-        localStorage.setItem("token", res.data.token);
-        navigator("/crud"); // Navigate to CRUD page on success
-      }
+      await axios
+        .get(`http://localhost:3005/login?email=${email}&password=${password}`)
+        .then((response) => {
+          response.data.message === "Login successful"
+            ? navigator("/crud")
+            : alert("Login failed");
+        });
     } catch (err) {
-      setError(err.response.data.msg); // Display error if credentials are incorrect
+      console.log(err.message);
+      console.log("User not found");
     }
   };
 
@@ -32,7 +33,7 @@ const Login = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          {error && <p className="text-red-500">{error}</p>} {/* Error message */}
+          {error && <p className="text-red-500">{error}</p>}{" "}
           <form className="space-y-6" onSubmit={handleLogin}>
             <div>
               <label
@@ -80,6 +81,7 @@ const Login = () => {
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-teal-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-zinc-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500"
+                onClick={handleLogin}
               >
                 Sign in
               </button>

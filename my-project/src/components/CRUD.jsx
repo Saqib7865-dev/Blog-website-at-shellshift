@@ -8,12 +8,21 @@ const CRUD = () => {
   const [blogs, setBlogs] = useState([]);
   const [createBlog, setCreateBlog] = useState(false);
   const [update, setUpdate] = useState(false);
-  const [updateableData, setUpdateableData] = useState([]);
+  const [updateableData, setUpdateableData] = useState({});
   const handleDelete = (id) => {
-    axios
-      .delete(`http://localhost:3005/deleteBlog/${id}`)
-      .then((response) => console.log(response))
-      .catch((err) => console.log(err.message));
+    let flag = prompt(
+      "Are you sure you want to delete this blog (Yes/No)?",
+      "Yes"
+    );
+    console.log(flag);
+    if (flag === "Yes") {
+      axios
+        .delete(`http://localhost:3005/deleteBlog/${id}`)
+        .then((response) => console.log(response))
+        .catch((err) => console.log(err.message));
+    } else {
+      return;
+    }
   };
 
   useEffect(() => {
@@ -21,7 +30,7 @@ const CRUD = () => {
       .get("http://localhost:3005/readBlog")
       .then((response) => setBlogs(response))
       .catch((err) => console.log(err));
-  }, [blogs]);
+  });
 
   // Date object
   function formatUploadedTime(isoTimestamp) {
@@ -38,7 +47,7 @@ const CRUD = () => {
     const years = Math.floor(days / 365);
 
     if (seconds < 60) {
-      return "just now";
+      return "Just now";
     } else if (minutes < 60) {
       return `${minutes} minutes ago`;
     } else if (hours < 24) {
@@ -89,18 +98,21 @@ const CRUD = () => {
                     <h2 className="card-title font-bold text-2xl">
                       {item.title}
                     </h2>
-                    <p className="pt-2 text-justify my-1">{item.content}</p>
+                    <p className="pt-2 text-justify my-1">
+                      {item.content.slice(0, 100)}
+                    </p>
                     <div className="card-date text-end ">
-                      <p className="w-full end px-5 pt-3">
-                        Uploaded {uploadedTime}
-                      </p>
+                      <p className="w-full end px-5 pt-3">{uploadedTime}</p>
                     </div>
                     <div className="mt-2">
                       <button
                         className="btn bg-green-400 px-4 py-2 rounded-md mr-2"
                         onClick={() => {
                           setUpdate(true);
-                          setUpdateableData(item);
+                          setUpdateableData({
+                            title: item.title,
+                            content: item.content,
+                          });
                         }}
                       >
                         Update

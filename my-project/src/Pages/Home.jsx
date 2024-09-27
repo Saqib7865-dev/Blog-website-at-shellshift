@@ -21,7 +21,7 @@ const MyModal = ({ title, content, date }) => {
         <div className="card bg-base-100 relative rounded-lg shadow-xl py-4">
           <figure>
             <img
-              // src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
               alt="Shoes"
             />
           </figure>
@@ -47,7 +47,7 @@ const MyModal = ({ title, content, date }) => {
               </Link>
 
               <div className="card-date  m-3 text-center  border ml-65  font-semibold inline  text-zinc-700 px-5 ">
-                Uploaded {date}
+                {date}
               </div>
             </form>
           </div>
@@ -106,7 +106,7 @@ const Home = () => {
               Recent Blogs
             </p>
           </h1>
-          <div className="w-full cards flex justify-evenly flex-wrap items-center overflow-y-scroll h-screen py-5">
+          <div className="w-full cards flex justify-evenly flex-wrap h-screen overflow-y-scroll py-5">
             {blogs.length === 0 ? (
               <div>No blog found</div>
             ) : (
@@ -121,9 +121,10 @@ const Home = () => {
                       <img
                         src="//img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
                         alt="Shoes"
+                        className="rounded-lg"
                       />
                     </figure>
-                    <div className="card-body p-3">
+                    <div className="card-body p-3 rounded-lg">
                       <h2 className="card-title">{data.title}</h2>
                       <p className="pt-2">
                         {data.content.slice(0, 20)}...{" "}
@@ -134,9 +135,7 @@ const Home = () => {
                         />
                       </p>
                       <div className="card-date flex-col justify-end">
-                        <p className="w-full end px-5 pt-3">
-                          Uploaded {uploadedTime}
-                        </p>
+                        <p className="w-full end px-5 pt-3">{uploadedTime}</p>
                       </div>
                     </div>
                   </div>
@@ -153,7 +152,7 @@ const Home = () => {
             {blogs.length === 0 ? (
               <div>No blog found</div>
             ) : (
-              blogs.data.map((data, index) => {
+              blogs.data.slice(0,3).map((data, index) => {
                 const uploadedTime = formatUploadedTime(data.date);
                 return (
                   <div
@@ -169,8 +168,7 @@ const Home = () => {
                     <div className="card-body p-3">
                       <h2 className="card-title">{data.title}</h2>
                       <p className="pt-2">
-                        {/* {data.content.slice(0, 20)}...{" "} */}
-                        {data.content}
+                        {data.content.slice(0,100)}
                         <MyModal
                           title={data.title}
                           content={data.content}
@@ -178,9 +176,7 @@ const Home = () => {
                         />
                       </p>
                       <div className="card-date flex-col justify-end">
-                        <p className="w-full end px-5 pt-3">
-                          Uploaded {uploadedTime}
-                        </p>
+                        <p className="w-full end px-5 pt-3 text-zinc-700">{uploadedTime}</p>
                       </div>
                     </div>
                   </div>

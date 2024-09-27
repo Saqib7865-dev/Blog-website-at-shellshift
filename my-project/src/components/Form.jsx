@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 const Form = ({ blogTitle, setFormDisplay, updateBlog, updateableData }) => {
-  const [title, setTitle] = useState(`${updateableData?.title || ""}`);
-  const [content, setContent] = useState(`${updateableData?.content || ""}`);
+  const [title, setTitle] = useState(
+    `${updateableData ? updateableData.title : "Title not visible"}`
+  );
+  const [content, setContent] = useState(
+    `${updateableData ? updateableData.content : "Content not visible"}`
+  );
   const handleUpdateSubmit = (e) => {
     e.preventDefault();
+
     if (title == "" && content == "") {
       alert("Please fill in the form");
       return;
@@ -20,6 +25,7 @@ const Form = ({ blogTitle, setFormDisplay, updateBlog, updateableData }) => {
     e.preventDefault();
     if (title == "" && content == "") {
       alert("Please fill in the form");
+
       return;
     } else {
       axios

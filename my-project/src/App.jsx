@@ -5,7 +5,6 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ContactUs from "./pages/ContactUs";
 import Login from "./components/Login";
 import CRUD from "./components/CRUD";
-import ResetPassword from "./components/ResetPassword"
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/login" element={<Login />} />
       <Route path="/crud" element={<CRUD />} />
-      <Route path="/resetpassword" element={<ResetPassword />} />
     </Routes>
   );
 }
