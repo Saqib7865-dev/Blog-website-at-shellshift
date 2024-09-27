@@ -1,9 +1,27 @@
-// eslint-disable-next-line no-unused-vars
-import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigator = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("/login", { email, password });
+      if (res.data.token) {
+        // Store the JWT token in localStorage
+        localStorage.setItem("token", res.data.token);
+        navigator("/crud"); // Navigate to CRUD page on success
+      }
+    } catch (err) {
+      setError(err.response.data.msg); // Display error if credentials are incorrect
+    }
+  };
+
   return (
     <div>
       <div className="flex min-h-full flex-1 flex-col  justify-center px-6 py-12 lg:px-8">
@@ -14,7 +32,8 @@ const Login = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6">
+          {error && <p className="text-red-500">{error}</p>} {/* Error message */}
+          <form className="space-y-6" onSubmit={handleLogin}>
             <div>
               <label
                 htmlFor="email"
@@ -27,38 +46,31 @@ const Login = () => {
                   id="email"
                   name="email"
                   type="email"
-                  // required
+                  required
                   autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-zinc-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-zinc-500 focus:ring-1 focus:ring-inset focus:ring-zinc-700 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
             <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-zinc-700"
-                >
-                  Password
-                </label>
-                <div className="text-sm">
-                  <a
-                    href=""
-                    className="font-semibold text-teal-500 hover:text-teal-400"
-                    onClick={() => navigator("/resetpassword")}
-                  >
-                    Reset password?
-                  </a>
-                </div>
-              </div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium leading-6 text-zinc-700"
+              >
+                Password
+              </label>
               <div className="mt-2">
                 <input
                   id="password"
                   name="password"
                   type="password"
-                  // required
+                  required
                   autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-zinc-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-zinc-500 focus:ring-1 focus:ring-inset focus:ring-zinc-700 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -67,7 +79,6 @@ const Login = () => {
             <div>
               <button
                 type="submit"
-                onClick={() => navigator("/crud")}
                 className="flex w-full justify-center rounded-md bg-teal-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-zinc-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500"
               >
                 Sign in
