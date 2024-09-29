@@ -5,7 +5,10 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ContactUs from "./pages/ContactUs";
 import Login from "./components/Login";
 import CRUD from "./components/CRUD";
+import CreateForm from "./components/CreateForm";
+import UpdateForm from "./components/UpdateForm";
 import { Route, Routes } from "react-router-dom";
+import PrivateRoutes from "./components/PrivateRoutes";
 
 function App() {
   return (
@@ -16,7 +19,11 @@ function App() {
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/crud" element={<CRUD />} />
+      <Route path="/createBlog" element={<CreateForm />} />
+      <Route path="/updateBlog/:id" element={<UpdateForm />} />
+      <Route path="/private" element={<PrivateRoutes />}>
+        <Route path="/private/crud" element={<CRUD />} />
+      </Route>
     </Routes>
   );
 }

@@ -1,3 +1,4 @@
+const multer = require("multer");
 const BlogProject = require("../models/Blog");
 async function handelGetAllUsers(req, res) {
   await BlogProject.find({})
@@ -6,7 +7,12 @@ async function handelGetAllUsers(req, res) {
 }
 
 async function handleAddUser(req, res) {
-  await BlogProject.create(req.body)
+  const image = req.file?.filename;
+  const { title, content } = req.body;
+  if (!image) {
+    return res.status(400).json({ message: "Image upload failed" });
+  }
+  await BlogProject.create({ title, content, image })
     .then((data) => res.json(data))
     .catch((err) => res.json(err));
 }
@@ -33,9 +39,17 @@ async function handleDeleteUser(req, res) {
     });
   }
 }
+
+async function getUserById(req, res) {
+  const { id } = req.params;
+  const user = await BlogProject.findById(id)
+    .then((response) => res.json(response))
+    .catch((err) => res.json(err));
+}
 module.exports = {
   handelGetAllUsers,
   handleAddUser,
   handleUpdateUser,
   handleDeleteUser,
+  getUserById,
 };

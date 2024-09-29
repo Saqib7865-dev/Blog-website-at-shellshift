@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
+  const navigator = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigator = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -14,8 +14,12 @@ const Login = () => {
         .get(`http://localhost:3005/login?email=${email}&password=${password}`)
         .then((response) => {
           response.data.message === "Login successful"
-            ? navigator("/crud")
+            ? (localStorage.setItem("loggedIn", true),
+              navigator("/private/crud"))
             : alert("Login failed");
+        })
+        .catch((error) => {
+          console.error(error);
         });
     } catch (err) {
       console.log(err.message);

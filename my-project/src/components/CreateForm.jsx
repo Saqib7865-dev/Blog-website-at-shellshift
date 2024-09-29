@@ -1,40 +1,29 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
-const Form = ({ blogTitle, setFormDisplay, updateBlog, updateableData }) => {
-  const [title, setTitle] = useState(
-    `${updateableData ? updateableData.title : "Title not visible"}`
-  );
-  const [content, setContent] = useState(
-    `${updateableData ? updateableData.content : "Content not visible"}`
-  );
-  const handleUpdateSubmit = (e) => {
-    e.preventDefault();
+const CreateForm = () => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [file, setFile] = useState();
 
-    if (title == "" && content == "") {
-      alert("Please fill in the form");
-      return;
-    } else {
-      axios.put(`http://localhost:3005/updateBlog/${updateableData._id}`, {
-        title,
-        content,
-      });
-      setFormDisplay(false);
-    }
-  };
-  const handleCreateSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (title == "" && content == "") {
       alert("Please fill in the form");
 
       return;
     } else {
+      const formData = new FormData();
+
+      formData.append("file", file);
+      formData.append("title", title);
+      formData.append("content", content);
+
       axios
-        .post("http://localhost:3005/createBlog", { title, content })
+        .post("http://localhost:3005/createBlog", formData)
         .then((response) => {
-          console.log(response);
           setTitle("");
           setContent("");
-          setFormDisplay(false);
         })
         .catch((error) => console.log(error));
     }
@@ -45,7 +34,7 @@ const Form = ({ blogTitle, setFormDisplay, updateBlog, updateableData }) => {
         action="post"
         className={`formContainer container mx-auto p-4 min-w-[80vw] min-h-[80vh]`}
       >
-        <h3 className="font-bold text-2xl mb-5">{blogTitle}</h3>
+        <h3 className="font-bold text-2xl mb-5">Create Blog</h3>
         <div className="mb-4">
           <label htmlFor="title" className="block text-gray-700 font-bold mb-2">
             Title
@@ -75,17 +64,30 @@ const Form = ({ blogTitle, setFormDisplay, updateBlog, updateableData }) => {
             onChange={(e) => setContent(e.target.value)}
           ></textarea>
         </div>
-        <button
-          type="button"
+        <div className="mb-4">
+          <label
+            htmlFor="textarea"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Upload blog thumbnail:
+          </label>
+          <input
+            type="file"
+            onChange={(e) => {
+              setFile(e.target.files[0]);
+            }}
+          />
+        </div>
+        <Link
+          to="/private/crud"
           className={`btn bg-red-400 px-4 py-2 rounded-md mr-2`}
-          onClick={() => setFormDisplay(false)}
         >
           Close
-        </button>
+        </Link>
         <button
           type="submit"
           className="btn bg-green-400 px-4 py-2 rounded-md mr-2"
-          onClick={updateBlog ? handleUpdateSubmit : handleCreateSubmit}
+          onClick={handleSubmit}
         >
           Submit
         </button>
@@ -94,4 +96,4 @@ const Form = ({ blogTitle, setFormDisplay, updateBlog, updateableData }) => {
   );
 };
 
-export default Form;
+export default CreateForm;

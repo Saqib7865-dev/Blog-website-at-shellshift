@@ -119,7 +119,7 @@ const Home = () => {
                   >
                     <figure>
                       <img
-                        src="//img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                        src={`http://localhost:3005/Images/${data.image}`}
                         alt="Shoes"
                         className="rounded-lg"
                       />
@@ -152,7 +152,7 @@ const Home = () => {
             {blogs.length === 0 ? (
               <div>No blog found</div>
             ) : (
-              blogs.data.slice(0,3).map((data, index) => {
+              blogs.data.slice(0, 3).map((data, index) => {
                 const uploadedTime = formatUploadedTime(data.date);
                 return (
                   <div
@@ -161,14 +161,14 @@ const Home = () => {
                   >
                     <figure>
                       <img
-                        src="//img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                        src={`http://localhost:3005/Images/${data.image}`}
                         alt="Shoes"
                       />
                     </figure>
                     <div className="card-body p-3">
                       <h2 className="card-title">{data.title}</h2>
                       <p className="pt-2">
-                        {data.content.slice(0,100)}
+                        {data.content.slice(0, 100)}
                         <MyModal
                           title={data.title}
                           content={data.content}
@@ -176,7 +176,9 @@ const Home = () => {
                         />
                       </p>
                       <div className="card-date flex-col justify-end">
-                        <p className="w-full end px-5 pt-3 text-zinc-700">{uploadedTime}</p>
+                        <p className="w-full end px-5 pt-3 text-zinc-700">
+                          {uploadedTime}
+                        </p>
                       </div>
                     </div>
                   </div>

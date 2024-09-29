@@ -5,17 +5,28 @@ const readRouter = require("./routes/readRouter");
 const createRouter = require("./routes/createRouter");
 const updateRouter = require("./routes/updateRouter");
 const deleteRouter = require("./routes/deleteRouter");
+const BlogProject = require("./models/Blog");
 const usermodel = require("./models/User");
+const path = require("path");
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "/public")));
 mongoose.connect("mongodb://127.0.0.1:27017/Blog");
 
 // Routes
 app.use("/readBlog", readRouter);
+// app.use("/readBlog/:id", readRouter);
 app.use("/createBlog", createRouter);
 app.use("/updateBlog", updateRouter);
 app.use("/deleteBlog", deleteRouter);
+
+app.get("/readBlogById", async (req, res) => {
+  let { id } = req.query;
+  await BlogProject.findById(id)
+    .then((result) => res.json(result))
+    .catch((err) => res.json(err));
+});
 
 app.post("/createUser", async (req, res) => {
   let userEmail = req.query.email;
@@ -32,14 +43,7 @@ app.post("/createUser", async (req, res) => {
 app.get("/login", async (req, res) => {
   let userEmail = req.query.email;
   let userPassword = req.query.password;
-  console.log(
-    `FRONTEND--> userEmail: ${userEmail}, userPassword: ${userPassword}`
-  );
-
   let user = await usermodel.findOne({ email: userEmail });
-  console.log(
-    `BACKEND--> userEmail: ${user.email}, userPassword: ${user.password}`
-  );
   if (!user) {
     console.log("User not found");
     return;

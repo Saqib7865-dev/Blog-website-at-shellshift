@@ -2,13 +2,10 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Form from "./Form";
+import { Link, useNavigate } from "react-router-dom";
 
 const CRUD = () => {
   const [blogs, setBlogs] = useState([]);
-  const [createBlog, setCreateBlog] = useState(false);
-  const [update, setUpdate] = useState(false);
-  const [updateableData, setUpdateableData] = useState({});
   const handleDelete = (id) => {
     let flag = prompt(
       "Are you sure you want to delete this blog (Yes/No)?",
@@ -30,9 +27,7 @@ const CRUD = () => {
       .get("http://localhost:3005/readBlog")
       .then((response) => setBlogs(response))
       .catch((err) => console.log(err));
-  });
-
-  // Date object
+  }, []);
   function formatUploadedTime(isoTimestamp) {
     const uploadedDate = new Date(isoTimestamp);
     const currentTime = new Date();
@@ -59,8 +54,14 @@ const CRUD = () => {
     } else if (months < 12) {
       return `${months} months ago`;
     } else {
-      return `${years} years ago`;
+      // If more than a week has passed, display the uploaded date
+      return uploadedDate.toLocaleDateString();
     }
+  }
+  const navigator = useNavigate();
+  function handleLogout() {
+    localStorage.removeItem("loggedIn");
+    navigator("/login");
   }
   return (
     <div className={`CRUDContainer mx-auto py-7 flex`}>
@@ -70,12 +71,12 @@ const CRUD = () => {
             All Blogs
           </p>
         </h1>
-        <button
-          className="min-w-[100px] py-5  px-5 btn bg-green-400 font-bold text-white"
-          onClick={() => setCreateBlog(true)}
+        <Link
+          to="/createBlog"
+          className="min-w-[100px] inline-block mt-1 py-5  px-5 btn bg-green-400 font-bold text-white"
         >
           Create a new blog
-        </button>
+        </Link>
         <div className="w-full cards gap-4 flex justify-evenly flex-wrap items-center py-5">
           {blogs.length === 0 ? (
             <div>No record found</div>
@@ -90,7 +91,7 @@ const CRUD = () => {
                 >
                   <figure>
                     <img
-                      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                      src={`http://localhost:3005/Images/${item.image}`}
                       alt="Shoes"
                     />
                   </figure>
@@ -105,18 +106,12 @@ const CRUD = () => {
                       <p className="w-full end px-5 pt-3">{uploadedTime}</p>
                     </div>
                     <div className="mt-2">
-                      <button
+                      <Link
+                        to={`/updateBlog/${item._id}`}
                         className="btn bg-green-400 px-4 py-2 rounded-md mr-2"
-                        onClick={() => {
-                          setUpdate(true);
-                          setUpdateableData({
-                            title: item.title,
-                            content: item.content,
-                          });
-                        }}
                       >
                         Update
-                      </button>
+                      </Link>
                       <button
                         className="btn bg-red-400 px-4 py-2 rounded-md mr-2"
                         onClick={() => handleDelete(item._id)}
@@ -129,18 +124,13 @@ const CRUD = () => {
               );
             })
           )}
-          <div className={`${createBlog ? "block" : "hidden"} formDiv`}>
-            <Form blogTitle="Create Blog" setFormDisplay={setCreateBlog} />
-          </div>
-          <div className={`${update ? "block" : "hidden"} formDiv`}>
-            <Form
-              blogTitle="Update Blog"
-              setFormDisplay={setUpdate}
-              updateBlog={update}
-              updateableData={updateableData}
-            />
-          </div>
         </div>
+        <button
+          onClick={handleLogout}
+          className="min-w-[100px] inline-block mt-1 py-5  px-5 btn bg-green-400 font-bold text-white"
+        >
+          Logout
+        </button>
       </div>
     </div>
   );
