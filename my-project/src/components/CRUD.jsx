@@ -92,7 +92,7 @@ const CRUD = () => {
                   <figure>
                     <img
                       src={`http://localhost:3005/Images/${item.image}`}
-                      alt="Shoes"
+                      alt="image"
                     />
                   </figure>
                   <div className="card-body p-3">
