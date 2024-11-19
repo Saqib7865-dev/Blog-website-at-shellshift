@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-// import { data } from "../data/data";
 import { Link } from "react-router-dom";
 import axios from "axios";
-const MyModal = ({ title, content, date }) => {
+const MyModal = ({ title, content, date, image }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
@@ -19,11 +18,8 @@ const MyModal = ({ title, content, date }) => {
         open={isOpen}
       >
         <div className="card bg-base-100 relative rounded-lg shadow-xl py-4">
-          <figure>
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-              alt="Shoes"
-            />
+          <figure className="w-[100%] flex justify-center">
+            <img src={image} alt="image" className="w-32" />
           </figure>
           <div className="card-body p-3">
             <h2 className="card-title font-bold mb-2">{title}</h2>
@@ -131,10 +127,11 @@ const Home = () => {
                         <MyModal
                           title={data.title}
                           content={data.content}
+                          image={`http://localhost:3005/Images/${data.image}`}
                           date={uploadedTime}
                         />
                       </p>
-                      <div className="card-date flex-col justify-end">
+                      <div className="card-date text-end">
                         <p className="w-full end px-5 pt-3">{uploadedTime}</p>
                       </div>
                     </div>
@@ -172,10 +169,11 @@ const Home = () => {
                         <MyModal
                           title={data.title}
                           content={data.content}
+                          image={`http://localhost:3005/Images/${data.image}`}
                           date={uploadedTime}
                         />
                       </p>
-                      <div className="card-date flex-col justify-end">
+                      <div className="card-date text-end">
                         <p className="w-full end px-5 pt-3 text-zinc-700">
                           {uploadedTime}
                         </p>

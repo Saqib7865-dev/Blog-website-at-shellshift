@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 // import { data } from "../data/data";
 import { Link } from "react-router-dom";
 import axios from "axios";
-const MyModal = ({ title, content, uploadedTime }) => {
+const MyModal = ({ title, content, uploadedTime, image }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
@@ -20,11 +20,8 @@ const MyModal = ({ title, content, uploadedTime }) => {
         open={isOpen}
       >
         <div className="card bg-base-100 relative rounded-lg shadow-xl py-4">
-          <figure>
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-              alt="Shoes"
-            />
+          <figure className="w-[100%] flex justify-center">
+            <img src={image} alt="image" className="w-32" />
           </figure>
           <div className="card-body p-3">
             <h2 className="card-title font-bold mb-2">{title}</h2>
@@ -47,8 +44,8 @@ const MyModal = ({ title, content, uploadedTime }) => {
                 Read full Blog
               </Link>
 
-              <div className="card-date  m-3 text-center  border ml-65  font-semibold inline  text-zinc-700 px-5 ">
-                Uploaded {uploadedTime}
+              <div className="card-date  m-3 ml-65  font-semibold inline  text-zinc-700 px-5 text-end">
+                {uploadedTime}
               </div>
             </form>
           </div>
@@ -59,7 +56,6 @@ const MyModal = ({ title, content, uploadedTime }) => {
 };
 
 const MyBlogs = () => {
-  // const [isModalVisible, setIsModalVisible] = useState(false);
   const [blogs, setBlogs] = useState([]);
   useEffect(() => {
     axios
@@ -123,7 +119,7 @@ const MyBlogs = () => {
                     <figure>
                       <img
                         src={`http://localhost:3005/Images/${data.image}`}
-                        alt="Shoes"
+                        alt="image"
                       />
                     </figure>
                     <div className="card-body p-3">
@@ -134,12 +130,11 @@ const MyBlogs = () => {
                           title={data.title}
                           content={data.content}
                           uploadedTime={uploadedTime}
+                          image={`http://localhost:3005/Images/${data.image}`}
                         />
                       </p>
-                      <div className="card-date flex-col justify-end">
-                        <p className="w-full end px-5 pt-3">
-                          Uploaded {uploadedTime}
-                        </p>
+                      <div className="card-date text-end">
+                        <p className="w-full end px-5 pt-3">{uploadedTime}</p>
                       </div>
                     </div>
                   </div>
